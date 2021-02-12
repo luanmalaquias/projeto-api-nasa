@@ -19,7 +19,7 @@ public class Frm1Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static int screenX = 1217, screenY = 597;
-	static Frm1Principal principal;
+	public static Frm1Principal principal;
 
 	public Frm1Principal() {
 		super("NASA API's");
@@ -138,7 +138,7 @@ public class Frm1Principal extends JFrame {
 	public void fundoSetVisible(boolean b) {
 		principal.fundoPanel.setVisible(b);
 	}
-
+	
 	public static void main(String args[]) {
 		principal = new Frm1Principal();
 
