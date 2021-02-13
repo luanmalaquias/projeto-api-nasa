@@ -13,7 +13,7 @@ public class ApodDb {
 		try {
 			conexao = ConexaoDB.abrirConexao();
 			insert = conexao.prepareStatement("INSERT INTO apod VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-			select = conexao.prepareStatement("SELECT * FROM apod");
+			select = conexao.prepareStatement("SELECT * FROM apod WHERE data = ?");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

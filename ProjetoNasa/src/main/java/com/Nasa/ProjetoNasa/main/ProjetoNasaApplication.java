@@ -2,13 +2,14 @@ package com.Nasa.ProjetoNasa.main;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.Nasa.ProjetoNasa.ui.Frm1Principal;
+import com.Nasa.ProjetoNasa.ui.Frm0Spray;
 
 @SpringBootApplication
 public class ProjetoNasaApplication {
 
+	@SuppressWarnings("unused")
 	public static void main(String args[]) {
-		Frm1Principal.principal = new Frm1Principal();
+		Frm0Spray f = new Frm0Spray();
 	}
 
 }

@@ -41,12 +41,12 @@ public class Utils {
 		t.addFocusListener(new EventoFoco());
 	}
 	
-	public static void ajustesComboBoc(JComboBox<String> c, int x, int y) {
+	public static void ajustesComboBox(JComboBox<String> c, int x, int y) {
 		c.setBounds(x, y, 100, 30);
 		c.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
 	}
 	
-	@SuppressWarnings({ "deprecation", "unused" })
+	@SuppressWarnings("deprecation")
 	public static boolean validarData(String dia, String mes, String ano) {
 		
 		Date hoje = new Date();

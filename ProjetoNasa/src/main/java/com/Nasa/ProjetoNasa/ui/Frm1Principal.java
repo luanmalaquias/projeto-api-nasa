@@ -18,7 +18,7 @@ import com.Nasa.ProjetoNasa.model.Utils;
 public class Frm1Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static int screenX = 1217, screenY = 597;
+	private static int screenX = 1233, screenY = 636; //1217 597
 	public static Frm1Principal principal;
 
 	public Frm1Principal() {
@@ -28,11 +28,14 @@ public class Frm1Principal extends JFrame {
 			setSize(screenX, screenY);
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setLocationRelativeTo(null);
-			setUndecorated(true);
+			//setUndecorated(true);
+			setResizable(false);
 			setLayout(null);
 			setIconImage(new ImageIcon(getClass().getResource("/nasa_icon.png")).getImage());
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			
 			initialize();
+			
 			setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,9 +49,9 @@ public class Frm1Principal extends JFrame {
 	
 	// *
 
-	private ImageIcon fundoImageIcon, botaoFecharIcon, botaoMinimizarIcon, nasaImageIcon;
+	private ImageIcon fundoImageIcon, nasaImageIcon;
 	private JLabel fundoJLabel;
-	private JButton fecharButton, minimizarButton, nasaButton;
+	private JButton nasaButton;
 	private JPanel fundoPanel;
 
 	private void initialize() {
@@ -57,15 +60,11 @@ public class Frm1Principal extends JFrame {
 			/***/
 
 			fundoImageIcon = new ImageIcon(getClass().getResource("/01_fundo_nasa.png"));
-			botaoFecharIcon = new ImageIcon(getClass().getResource("/02_botao_fechar.png"));
-			botaoMinimizarIcon = new ImageIcon(getClass().getResource("/04_botao_minimizar.png"));
 			nasaImageIcon = new ImageIcon(getClass().getResource("/06_botao_nasa.png"));
 			apodImageIcon = new ImageIcon(getClass().getResource("/08_botao_apod.png"));
 			insightMWSImageIcon = new ImageIcon(getClass().getResource("/11_botao_insight.png"));
 			
 			fundoJLabel = new JLabel(fundoImageIcon);
-			fecharButton = new JButton(botaoFecharIcon);
-			minimizarButton = new JButton(botaoMinimizarIcon);
 			nasaButton = new JButton(nasaImageIcon);
 			apodButton = new JButton(apodImageIcon);
 			insightMWSButton = new JButton(insightMWSImageIcon);
@@ -76,8 +75,6 @@ public class Frm1Principal extends JFrame {
 			/***/
 
 			fundoJLabel.setBounds(0, 0, fundoImageIcon.getIconWidth(), fundoImageIcon.getIconHeight());
-			Utils.ajustesBotao(fecharButton, 1217 - fecharButton.getIcon().getIconWidth(), 0,new ImageIcon(getClass().getResource("/03_botao_fechar_rolover.png")));
-			Utils.ajustesBotao(minimizarButton, 1217 - 150, 0,new ImageIcon(getClass().getResource("/05_botao_minimizar_rolover.png")));
 			Utils.ajustesBotao(nasaButton, 452, 122,new ImageIcon(getClass().getResource("/07_botao_nasa_rolover.png")));
 			nasaButton.setToolTipText("Visit Nasa.gov");
 			Utils.ajustesBotao(apodButton, 0, 535, new ImageIcon(getClass().getResource("/08_botao_apod_rolover.png")));
@@ -90,8 +87,6 @@ public class Frm1Principal extends JFrame {
 
 			add(apodPanel);
 			add(insightMWSPanel);
-			fundoPanel.add(fecharButton);
-			fundoPanel.add(minimizarButton);
 			fundoPanel.add(nasaButton);
 			fundoPanel.add(apodButton);
 			fundoPanel.add(insightMWSButton);
@@ -104,11 +99,7 @@ public class Frm1Principal extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						if (arg0.getSource().equals(fecharButton)) {
-							dispose();
-						} else if (arg0.getSource().equals(minimizarButton)) {
-							setExtendedState(ICONIFIED);
-						} else if (arg0.getSource().equals(nasaButton)) {
+						if (arg0.getSource().equals(nasaButton)) {
 							Desktop.getDesktop().browse(new URI("https://www.nasa.gov/"));
 						} else if (arg0.getSource().equals(apodButton)) {
 							apodPanel.setVisible(true);
@@ -123,8 +114,6 @@ public class Frm1Principal extends JFrame {
 				}
 			}
 
-			fecharButton.addActionListener(new EventoButton());
-			minimizarButton.addActionListener(new EventoButton());
 			nasaButton.addActionListener(new EventoButton());
 			apodButton.addActionListener(new EventoButton());
 			insightMWSButton.addActionListener(new EventoButton());
@@ -139,9 +128,4 @@ public class Frm1Principal extends JFrame {
 		principal.fundoPanel.setVisible(b);
 	}
 	
-	public static void main(String args[]) {
-		principal = new Frm1Principal();
-
-	}
-
 }
