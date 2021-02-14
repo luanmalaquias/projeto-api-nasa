@@ -27,7 +27,7 @@ public class Utils {
 	public static void ajustesTextField(JTextField t, int x, int y) {
 		t.setBounds(x, y, 100, 30);
 		t.setHorizontalAlignment(0);
-		t.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
+		t.setFont(new Font("Montserrat", Font.PLAIN, 14));
 
 		class EventoFoco implements FocusListener {
 			@Override
@@ -43,7 +43,7 @@ public class Utils {
 	
 	public static void ajustesComboBox(JComboBox<String> c, int x, int y) {
 		c.setBounds(x, y, 100, 30);
-		c.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
+		c.setFont(new Font("Montserrat", Font.PLAIN, 14));
 	}
 	
 	@SuppressWarnings("deprecation")

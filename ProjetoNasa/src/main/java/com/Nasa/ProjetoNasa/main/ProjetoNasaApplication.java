@@ -1,15 +1,15 @@
 package com.Nasa.ProjetoNasa.main;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.Nasa.ProjetoNasa.ui.Frm0Spray;
 
-@SpringBootApplication
 public class ProjetoNasaApplication {
 
-	@SuppressWarnings("unused")
 	public static void main(String args[]) {
+		@SuppressWarnings("unused")
 		Frm0Spray f = new Frm0Spray();
+		
+		//System.out.println(Panel2Insight.celsiusConverter(80.0));
+		
 	}
 
 }

@@ -71,7 +71,7 @@ public class Panel1Apod extends JPanel {
 		anoComboBox = new JComboBox<>();
 
 		okButton = new JButton("ok");
-		okButton.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
+		okButton.setFont(new Font("Montserrat", Font.PLAIN, 14));
 
 		/***/// config
 
@@ -95,18 +95,21 @@ public class Panel1Apod extends JPanel {
 		mesComboBox.setVisible(false);
 		anoComboBox.setVisible(false);
 
+		
 		int year = new Date().getYear() + 1900;
-		for (int i = 1; i <= year; i++) {
-			if (i <= 31) {
-				diaComboBox.addItem(Integer.toString(i));
+		for (int i = year; i >= 0; i--) {
+			if(i>=1996) {
+				anoComboBox.addItem(Integer.toString(i));				
 			}
 			if (i <= 12) {
 				mesComboBox.addItem(Integer.toString(i));
 			}
-			if (i >= 1996 && i <= year) {
-				anoComboBox.addItem(Integer.toString(i));
+			if (i <= 31) {
+				diaComboBox.addItem(Integer.toString(i));
 			}
 		}
+		
+		anoComboBox.setSelectedIndex(1);
 
 		okButton.setBounds(790, 450, 50, 30);
 		okButton.setVisible(false);

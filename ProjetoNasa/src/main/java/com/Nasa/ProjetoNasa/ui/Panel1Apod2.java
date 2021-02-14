@@ -142,7 +142,7 @@ public class Panel1Apod2 extends JFrame {
 
 	private void ajustesJLabel(JLabel l, int x, int y, int f) {
 		l.setBounds(x, y, 300, 30);
-		l.setFont(new Font("Bahnschrift", Font.PLAIN, f));
+		l.setFont(new Font("Montserrat", Font.PLAIN, f));
 		l.setForeground(Color.white);
 	}
 	

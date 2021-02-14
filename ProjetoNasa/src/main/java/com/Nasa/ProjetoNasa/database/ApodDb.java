@@ -3,6 +3,7 @@ package com.Nasa.ProjetoNasa.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+@SuppressWarnings("unused")
 public class ApodDb {
 	
 	private Connection conexao;
