@@ -30,10 +30,8 @@ public class Panel1Apod extends JPanel {
 
 	}
 
-	private ImageIcon fundoApodImageIcon, voltarImageIcon, descricaoImageIcon, prosseguirImageIcon, hojeImageIcon,
+	private ImageIcon fundoApodImageIcon, descricaoImageIcon, prosseguirImageIcon, hojeImageIcon,
 			escolherImageIcon, aleatorioImageIcon;
-	private ImageIcon voltarImageIconRolOver, prosseguirImageIconRolOver, hojeImageIconRolOver,
-			escolherImageIconRolOver, aleatorioImageIconRolOver;
 	private JLabel fundoApodLabel, descricaoLabel;
 	private JButton voltarButton, prosseguirButton, hojeButton, escolherButton, aleatorioButton, okButton;
 	private JComboBox<String> diaComboBox, mesComboBox, anoComboBox;
@@ -44,7 +42,6 @@ public class Panel1Apod extends JPanel {
 
 		/***/// initialization
 
-		voltarImageIcon = new ImageIcon(getClass().getResource("/09_botao_voltar.png"));
 		fundoApodImageIcon = new ImageIcon(getClass().getResource("/Apod/01_fundo_apod.png"));
 		descricaoImageIcon = new ImageIcon(getClass().getResource("/Apod/02_apod_descricao.png"));
 		prosseguirImageIcon = new ImageIcon(getClass().getResource("/Apod/03_botao_prosseguir.png"));
@@ -52,14 +49,8 @@ public class Panel1Apod extends JPanel {
 		escolherImageIcon = new ImageIcon(getClass().getResource("/Apod/07_botao_escolher.png"));
 		aleatorioImageIcon = new ImageIcon(getClass().getResource("/Apod/09_botao_aleatorio.png"));
 
-		voltarImageIconRolOver = new ImageIcon(getClass().getResource("/10_botao_voltar_rolover.png"));
-		prosseguirImageIconRolOver = new ImageIcon(getClass().getResource("/Apod/04_botao_prosseguir_rolover.png"));
-		hojeImageIconRolOver = new ImageIcon(getClass().getResource("/Apod/06_botao_hoje_rolover.png"));
-		escolherImageIconRolOver = new ImageIcon(getClass().getResource("/Apod/08_botao_escolher_rolover.png"));
-		aleatorioImageIconRolOver = new ImageIcon(getClass().getResource("/Apod/10_botao_aleatorio_rolover.png"));
-
 		fundoApodLabel = new JLabel(fundoApodImageIcon);
-		voltarButton = new JButton(voltarImageIcon);
+		voltarButton = new JButton();
 		descricaoLabel = new JLabel(descricaoImageIcon);
 		prosseguirButton = new JButton(prosseguirImageIcon);
 		hojeButton = new JButton(hojeImageIcon);
@@ -76,12 +67,12 @@ public class Panel1Apod extends JPanel {
 		/***/// config
 
 		fundoApodLabel.setBounds(0, 0, 1217, 597);
-		Utils.ajustesBotao(voltarButton, 0, 10, voltarImageIconRolOver);
+		Utils.botaoVoltar(voltarButton);
 		descricaoLabel.setBounds(71, 245, descricaoImageIcon.getIconWidth(), descricaoImageIcon.getIconHeight());
-		Utils.ajustesBotao(prosseguirButton, 525, 500, prosseguirImageIconRolOver);
-		Utils.ajustesBotao(hojeButton, 0, 486, hojeImageIconRolOver);
-		Utils.ajustesBotao(escolherButton, 400, 486, escolherImageIconRolOver);
-		Utils.ajustesBotao(aleatorioButton, 800, 486, aleatorioImageIconRolOver);
+		Utils.ajustesBotao(prosseguirButton, 525, 500, "/Apod/04_botao_prosseguir_rolover.png");
+		Utils.ajustesBotao(hojeButton, 0, 486, "/Apod/06_botao_hoje_rolover.png");
+		Utils.ajustesBotao(escolherButton, 400, 486, "/Apod/08_botao_escolher_rolover.png");
+		Utils.ajustesBotao(aleatorioButton, 800, 486, "/Apod/09_botao_aleatorio.png");
 
 		Utils.ajustesComboBox(diaComboBox, 410, 450);
 		Utils.ajustesComboBox(mesComboBox, 543, 450);

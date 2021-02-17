@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 
 public class Utils {
 
-	public static void ajustesBotao(JButton b, int x, int y, ImageIcon i) {
+	public static void ajustesBotao(JButton b, int x, int y, String s) {
 		b.setBounds(x, y, b.getIcon().getIconWidth(), b.getIcon().getIconHeight());
-		b.setRolloverIcon(i);
+		b.setRolloverIcon(new ImageIcon(Utils.class.getResource(s)));
 		b.setBackground(new Color(0, 0, 0, 0));
 		b.setFocusPainted(false);
 		b.setContentAreaFilled(false);
@@ -85,5 +85,11 @@ public class Utils {
 	public static boolean isInteger(String str) {
         return str != null && str.matches("[0-9]*");
     }
+	
+	public static void botaoVoltar(JButton b) {
+		ImageIcon voltarImageIcon = new ImageIcon(Utils.class.getResource("/09_botao_voltar.png"));
+		b.setIcon(voltarImageIcon);
+		Utils.ajustesBotao(b, 0, 10, "/10_botao_voltar_rolover.png");
+	}	
 	
 }

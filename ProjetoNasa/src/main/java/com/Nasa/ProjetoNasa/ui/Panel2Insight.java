@@ -29,8 +29,7 @@ public class Panel2Insight extends JPanel {
 		initialize();
 	}
 
-	private ImageIcon fundoInsightImageIcon, voltarImageIcon;
-	private ImageIcon voltarImageIconRolOver;
+	private ImageIcon fundoInsightImageIcon;
 	private JLabel fundoInsightJLabel, solJLabel, solInfoJLabel, dataInfoJLabel, highInfoJLabel, lowInfoJLabel;
 	private JButton voltarButton, okButton;
 	private JComboBox<String> solComboBox;
@@ -40,10 +39,8 @@ public class Panel2Insight extends JPanel {
 	private void initialize() {
 		/***/
 		fundoInsightImageIcon = new ImageIcon(getClass().getResource("/Mhs/01_fundo_insight.png"));
-		voltarImageIcon = new ImageIcon(getClass().getResource("/09_botao_voltar.png"));
-		voltarImageIconRolOver = new ImageIcon(getClass().getResource("/10_botao_voltar_rolover.png"));
 		fundoInsightJLabel = new JLabel(fundoInsightImageIcon);
-		voltarButton = new JButton(voltarImageIcon);
+		voltarButton = new JButton();
 		okButton = new JButton("Search");
 		solJLabel = new JLabel("Sol:");
 		solComboBox = new JComboBox<>();
@@ -55,7 +52,7 @@ public class Panel2Insight extends JPanel {
  
 		/***/
 		fundoInsightJLabel.setBounds(0, 0, 1217, 597);
-		Utils.ajustesBotao(voltarButton, 0, 10, voltarImageIconRolOver);
+		Utils.botaoVoltar(voltarButton);
 		solJLabel.setBounds(540, 420, 30, 30);
 		solJLabel.setFont(new Font("Montserrat", Font.BOLD, 14));
 		solJLabel.setForeground(Color.white);
@@ -76,6 +73,7 @@ public class Panel2Insight extends JPanel {
 		ajustesJLabel(dataInfoJLabel, 530, 245, 15);
 		ajustesJLabel(highInfoJLabel, 530, 320, 17);
 		ajustesJLabel(lowInfoJLabel, 530, 350, 17);
+		
 		/***/
 		add(voltarButton);
 		add(solJLabel);
@@ -119,8 +117,8 @@ public class Panel2Insight extends JPanel {
 		dataInfoJLabel.setText(mesToString(insight.getMeasurement().getFirst()));
 		String maxTemp = insight.getAir().getTemperature().getMaximum();
 		String lowTemp = insight.getAir().getTemperature().getMinimum();
-		highInfoJLabel.setText("High: " + celsiusConverter(Double.parseDouble(maxTemp)) + " C");
-		lowInfoJLabel.setText("Low: "+ celsiusConverter(Double.parseDouble(lowTemp)) + " C");
+		highInfoJLabel.setText("High: " + InSight.celsiusConverter(Double.parseDouble(maxTemp)) + " C");
+		lowInfoJLabel.setText("Low: "+ InSight.celsiusConverter(Double.parseDouble(lowTemp)) + " C");
 		informacoes.setText(insight.toString());
 	}
 	
@@ -144,11 +142,5 @@ public class Panel2Insight extends JPanel {
 		}
 		return null;
 	}
-	
-	public static String celsiusConverter(double tempF) {
-		//(32 °F − 32) × 5/9 = 0 °C
-		double celsius = ((tempF - 32) * 0.55);
-		return Double.toString(celsius).substring(0,5);
-	}
-	
+		
 }

@@ -2,7 +2,9 @@ package com.Nasa.ProjetoNasa.ui;
 
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -27,12 +29,16 @@ public class Panel1Apod2 extends JFrame {
 		super("APOD");
 		try {
 			this.apod = apod;
-			setSize(1200, 600);
+			setSize(1366, 768);
 			setLocationRelativeTo(null);
 			setLayout(null);
 			setIconImage(new ImageIcon(getClass().getResource("/Apod/apod_icon.png")).getImage());
 			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-			setExtendedState(MAXIMIZED_BOTH);
+			setResizable(false);
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			if(screenSize.getWidth()==1366 && screenSize.getHeight() == 768) {
+				setExtendedState(MAXIMIZED_BOTH);
+			}
 			initialize();
 			setVisible(true);
 		} catch (Exception e) {
@@ -41,7 +47,6 @@ public class Panel1Apod2 extends JFrame {
 	}
 
 	private ImageIcon fundoImageIcon, urlImageIcon, webViewIcon, hdWebViewIcon, videoPlayerIcon;
-	private ImageIcon webViewIconRolOver, hdWebViewIconRolOver, videoPlayerIconRolOver;
 	private JLabel fundoJLabel, title, data, copyright, mediaType, serviceVersion, urlImageJLabel;
 	private JTextArea explanationArea;
 	private URL url;
@@ -60,12 +65,9 @@ public class Panel1Apod2 extends JFrame {
 		fundoImageIcon = new ImageIcon(getClass().getResource("/Apod/11_apod_view.png"));
 		fundoJLabel = new JLabel(fundoImageIcon);
 		webViewIcon = new ImageIcon(getClass().getResource("/Apod/12_botao_web_view.png"));
-		webViewIconRolOver = new ImageIcon(getClass().getResource("/Apod/13_botao_web_view_rolover.png"));
 		hdWebViewIcon = new ImageIcon(getClass().getResource("/Apod/14_botao_hdweb_view.png"));
-		hdWebViewIconRolOver = new ImageIcon(getClass().getResource("/Apod/15_botao_hdweb_view_rolover.png"));
 		urlImageIcon = new ImageIcon(url);
 		videoPlayerIcon = new ImageIcon(getClass().getResource("/Apod/16_video_player.png"));
-		videoPlayerIconRolOver = new ImageIcon(getClass().getResource("/Apod/17_video_player_rolover.png"));
 		videoPlayer = new JButton(videoPlayerIcon);
 
 		title = new JLabel(apod.getTitle());
@@ -96,9 +98,9 @@ public class Panel1Apod2 extends JFrame {
 		explanationArea.setWrapStyleWord(true);
 		urlImageJLabel.setBounds(280, 0, 800, 740);
 		urlImageJLabel.setHorizontalAlignment(0);
-		Utils.ajustesBotao(webView, 280, 670, webViewIconRolOver);
-		Utils.ajustesBotao(hdWebView, 679, 670, hdWebViewIconRolOver);
-		Utils.ajustesBotao(videoPlayer, 649, 360, videoPlayerIconRolOver);
+		Utils.ajustesBotao(webView, 280, 670, "/Apod/15_botao_hdweb_view_rolover.png");
+		Utils.ajustesBotao(hdWebView, 679, 670, "/Apod/15_botao_hdweb_view_rolover.png");
+		Utils.ajustesBotao(videoPlayer, 649, 360, "/Apod/17_video_player_rolover.png");
 		boolean a = (apod.getMedia_type().equals("video")) ? true : false;
 		videoPlayer.setVisible(a);
 		fundoJLabel.setBounds(0, 0, fundoImageIcon.getIconWidth(), fundoImageIcon.getIconHeight());
