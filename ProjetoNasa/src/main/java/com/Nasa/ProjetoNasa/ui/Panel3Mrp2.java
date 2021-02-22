@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -79,8 +81,8 @@ public class Panel3Mrp2 extends JFrame {
 
 		/***/
 		fundoLabel.setBounds(0, 0, fundoIcon.getIconWidth(), fundoIcon.getIconHeight());
-		Utils.ajustesBotao(anteriorButton, 580, 630, "/Mrp/12_botao_anterior_rolover.png");
-		Utils.ajustesBotao(proximoButton, 730, 630, "/Mrp/10_botao_proximo_rolover.png");
+		Utils.ajustesBotao(anteriorButton, 580, 630, "/Mrp/12_botao_anterior_rolover.png", null);
+		Utils.ajustesBotao(proximoButton, 730, 630, "/Mrp/10_botao_proximo_rolover.png", null);
 		info.setBounds(14, 216, 448, 190);
 		info.setBackground(new Color(0, 0, 0, 0));
 		info.setForeground(Color.white);
@@ -103,16 +105,12 @@ public class Panel3Mrp2 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (arg0.getSource().equals(anteriorButton)) {
-					i--;
-					if (i < 0)
-						i = mrp.getPhotos().size() - 1;
-					trocarImagem();
+
+					trocarImagem('-');
 
 				} else if (arg0.getSource().equals(proximoButton)) {
-					i++;
-					if (i > mrp.getPhotos().size() - 1)
-						i = 0;
-					trocarImagem();
+
+					trocarImagem('+');
 
 				} else if (arg0.getSource().equals(webView)) {
 					try {
@@ -128,6 +126,19 @@ public class Panel3Mrp2 extends JFrame {
 		anteriorButton.addActionListener(new EventoButton());
 		webView.addActionListener(new EventoButton());
 
+		class EventoTrocarImagem implements KeyListener{
+			public void keyTyped(KeyEvent arg0) {}
+			public void keyReleased(KeyEvent arg0) {}
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == 65 || arg0.getKeyCode() == 37) {
+					trocarImagem('-');
+				} else if (arg0.getKeyCode() == 68 || arg0.getKeyCode() == 39) {
+					trocarImagem('+');
+				}
+			}			
+		}
+		info.addKeyListener(new EventoTrocarImagem());
+		
 	}
 
 	private void verifyHttps() {
@@ -145,7 +156,16 @@ public class Panel3Mrp2 extends JFrame {
 		}
 	}
 
-	private void trocarImagem() {
+	private void trocarImagem(char c) {
+		if (c == '-') {
+			i--;
+			if (i < 0)
+				i = mrp.getPhotos().size() - 1;
+		} else {
+			i++;
+			if (i > mrp.getPhotos().size() - 1)
+				i = 0;
+		}
 		try {
 			info.setText("Photo: " + i + "\n" + mrp.info(i));
 			url = new URL(mrp.getPhotos().get(i).getImg_src());

@@ -98,9 +98,9 @@ public class Panel1Apod2 extends JFrame {
 		explanationArea.setWrapStyleWord(true);
 		urlImageJLabel.setBounds(280, 0, 800, 740);
 		urlImageJLabel.setHorizontalAlignment(0);
-		Utils.ajustesBotao(webView, 280, 670, "/Apod/15_botao_hdweb_view_rolover.png");
-		Utils.ajustesBotao(hdWebView, 679, 670, "/Apod/15_botao_hdweb_view_rolover.png");
-		Utils.ajustesBotao(videoPlayer, 649, 360, "/Apod/17_video_player_rolover.png");
+		Utils.ajustesBotao(webView, 280, 670, "/Apod/13_botao_web_view_rolover.png", null);
+		Utils.ajustesBotao(hdWebView, 679, 670, "/Apod/15_botao_hdweb_view_rolover.png", null);
+		Utils.ajustesBotao(videoPlayer, 649, 360, "/Apod/17_video_player_rolover.png", null);
 		boolean a = (apod.getMedia_type().equals("video")) ? true : false;
 		videoPlayer.setVisible(a);
 		fundoJLabel.setBounds(0, 0, fundoImageIcon.getIconWidth(), fundoImageIcon.getIconHeight());
@@ -129,6 +129,7 @@ public class Panel1Apod2 extends JFrame {
 
 					} else if (arg0.getSource().equals(hdWebView)) {
 						Desktop.getDesktop().browse(new URI(apod.getHdurl()));
+						
 					}else if(arg0.getSource().equals(videoPlayer)) {
 						Desktop.getDesktop().browse(new URI(apod.getUrl()));
 					}

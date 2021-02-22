@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.Nasa.ProjetoNasa.model.Apod;
+import com.Nasa.ProjetoNasa.model.HistoryEvents;
 import com.Nasa.ProjetoNasa.model.InSight;
 import com.Nasa.ProjetoNasa.model.MarsRoverPhotos;
+import com.Nasa.ProjetoNasa.model.NasaLibrary;
 
 public class Request {
 
@@ -66,6 +68,33 @@ public class Request {
 
 	}
 
+	public static NasaLibrary requestNasaLibrary(String search, String mediaType) {
+		String url = "https://images-api.nasa.gov/search?q=" + search/* + "&media_type=audio" + mediaType*/;
+		RestTemplate template = new RestTemplate();
+		ResponseEntity<NasaLibrary> entidade = template.getForEntity(url, NasaLibrary.class);
+		return entidade.getBody();
+	}
+	
+	public static String requestUrlNasaLibrary(String link, String mediaType) {
+		RestTemplate template = new RestTemplate();
+		ResponseEntity<String[]> entidade = template.getForEntity(link, String[].class);
+		for(int i=0; i<entidade.getBody().length; i++) {
+			if(mediaType.equals("video") && entidade.getBody()[i].contains(".mp4")) {
+				return entidade.getBody()[i].replace(" ","%20");
+			}else if(mediaType.equals("audio") && entidade.getBody()[i].contains(".mp3")) {
+				return entidade.getBody()[i].replace(" ","%20");
+			}
+		}
+		return null;
+	}
+	
+	public static HistoryEvents[] requestHistoryEventsSpaceX() {
+		RestTemplate template = new RestTemplate();
+		String url = "https://api.spacexdata.com/v4/history";
+		ResponseEntity<HistoryEvents[]> entidade = template.getForEntity(url, HistoryEvents[].class);
+		return entidade.getBody();
+	}
+	
 	public static void erroMessage() {
 		JOptionPane.showMessageDialog(null, "Limite de requisiçoes excedidas", "Error 429",
 				JOptionPane.WARNING_MESSAGE);

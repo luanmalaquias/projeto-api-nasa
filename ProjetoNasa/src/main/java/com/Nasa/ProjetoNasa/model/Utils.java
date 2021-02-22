@@ -3,42 +3,45 @@ package com.Nasa.ProjetoNasa.model;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Utils {
 
-	public static void ajustesBotao(JButton b, int x, int y, String s) {
+	public static void ajustesBotao(JButton b, int x, int y, String s, String toolTip) {
 		b.setBounds(x, y, b.getIcon().getIconWidth(), b.getIcon().getIconHeight());
 		b.setRolloverIcon(new ImageIcon(Utils.class.getResource(s)));
+		b.setToolTipText(toolTip);
 		b.setBackground(new Color(0, 0, 0, 0));
+		b.setForeground(Color.white);
+		b.setFont(new Font("Consolas", Font.BOLD, 23));
 		b.setFocusPainted(false);
 		b.setContentAreaFilled(false);
 		b.setBorderPainted(false);
 		b.setCursor(new Cursor(12));
+		b.setHorizontalTextPosition(SwingConstants.CENTER);
+		b.setVerticalAlignment(SwingConstants.CENTER);
+		b.setFont(new Font("Nasalization Rg", Font.BOLD, 15));
 	}
-
-	public static void ajustesTextField(JTextField t, int x, int y) {
-		t.setBounds(x, y, 100, 30);
-		t.setHorizontalAlignment(0);
-		t.setFont(new Font("Montserrat", Font.PLAIN, 14));
-
-		class EventoFoco implements FocusListener {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				t.selectAll();
-			}
-			@Override
-			public void focusLost(FocusEvent arg0) {
-			}
-		}
-		t.addFocusListener(new EventoFoco());
+	
+	public static void ajustesBotao(JButton b, String text, int x, int y, String toolTip) {
+		b.setText("<html>"+text+"</html>".toUpperCase());
+		b.setBounds(x, y, 121, 62);
+		b.setFocusPainted(false);
+		b.setBorderPainted(false);
+		b.setToolTipText(toolTip);
+		b.setForeground(Color.white);
+		b.setCursor(new Cursor(12));
+		b.setContentAreaFilled(false);
+		b.setBackground(new Color(0, 0, 0, 0));
+		b.setVerticalAlignment(SwingConstants.CENTER);
+		b.setHorizontalTextPosition(SwingConstants.CENTER);
+		b.setFont(new Font("Nasalization Rg", Font.BOLD, 15));
+		b.setRolloverIcon(new ImageIcon(Utils.class.getResource("/02_botao_rolover.png")));
 	}
 	
 	public static void ajustesComboBox(JComboBox<String> c, int x, int y) {
@@ -82,6 +85,29 @@ public class Utils {
 		return data;
 	}
 	
+	public static String dataPadraoBr(String data) {
+		String dia = data.substring(8, 10);
+		String mes = data.substring(5, 7); 
+		String ano = data.substring(0, 4); 
+		String hora = data.substring(11, 18);
+		
+		switch(mes) {
+		case "01": mes = "Jan"; break;
+		case "02": mes = "Fev"; break;
+		case "03": mes = "Mar"; break;
+		case "04": mes = "Abr"; break;
+		case "05": mes = "Mai"; break;
+		case "06": mes = "Jun"; break;
+		case "07": mes = "Jul"; break;
+		case "08": mes = "Ago"; break;
+		case "09": mes = "Set"; break;
+		case "10": mes = "Out"; break;
+		case "11": mes = "Nov"; break;
+		case "12": mes = "Dec"; break;
+		}
+		return dia + " " + mes + " " + ano + "  -  " + hora;
+	}
+	
 	public static boolean isInteger(String str) {
         return str != null && str.matches("[0-9]*");
     }
@@ -89,7 +115,7 @@ public class Utils {
 	public static void botaoVoltar(JButton b) {
 		ImageIcon voltarImageIcon = new ImageIcon(Utils.class.getResource("/09_botao_voltar.png"));
 		b.setIcon(voltarImageIcon);
-		Utils.ajustesBotao(b, 0, 10, "/10_botao_voltar_rolover.png");
+		Utils.ajustesBotao(b, 0, 10, "/10_botao_voltar_rolover.png", null);
 	}	
 	
 }

@@ -61,9 +61,9 @@ public class Panel3Mrp extends JPanel {
 		/***/
 		fundoLabel.setBounds(0, 0, fundoIcon.getIconWidth(), fundoIcon.getIconHeight());
 		Utils.botaoVoltar(voltarButton);
-		Utils.ajustesBotao(curiosityButton, 0, 0, "/Mrp/03_botao_curiosity_rolover.png");
-		Utils.ajustesBotao(opportunityButton, 406, 0, "/Mrp/05_botao_opportunity_rolover.png");
-		Utils.ajustesBotao(spiritButton, 812, 0, "/Mrp/07_botao_spirit_rolover.png");
+		Utils.ajustesBotao(curiosityButton, 0, 0, "/Mrp/03_botao_curiosity_rolover.png", null);
+		Utils.ajustesBotao(opportunityButton, 406, 0, "/Mrp/05_botao_opportunity_rolover.png", null);
+		Utils.ajustesBotao(spiritButton, 812, 0, "/Mrp/07_botao_spirit_rolover.png", null);
 
 		solLabel.setBounds(553, 268, 50, 30);
 		solLabel.setFont(new Font("Montserrat", Font.BOLD, 14));
@@ -209,7 +209,7 @@ public class Panel3Mrp extends JPanel {
 
 		if (string.equals("curiosity")) {
 			String info = "Rover: Curiosity\r\n"
-					+ "Active Time: 2012-today\r\n"
+					+ "Active Time: 2012-Today\r\n"
 					+ "Operator: NASA\r\n"
 					+ "Program Mission: Mars Exploration Rovers\r\n"
 					+ "Landing date: 06/08/2012\r\n"
@@ -220,7 +220,7 @@ public class Panel3Mrp extends JPanel {
 			
 		} else if (string.equals("opportunity")) {
 			String info = "Rover: MER-B (Opportunity) \r\n"
-					+ "Active Time: 2004-2010\r\n"
+					+ "Active Time: 2004-2018\r\n"
 					+ "Operator: NASA\r\n"
 					+ "Program Mission: Mars Exploration Rovers\r\n"
 					+ "Landing date: 25/01/2004\r\n"

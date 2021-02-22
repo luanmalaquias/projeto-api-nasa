@@ -30,8 +30,8 @@ public class Panel1Apod extends JPanel {
 
 	}
 
-	private ImageIcon fundoApodImageIcon, descricaoImageIcon, prosseguirImageIcon, hojeImageIcon,
-			escolherImageIcon, aleatorioImageIcon;
+	private ImageIcon fundoApodImageIcon, descricaoImageIcon, prosseguirImageIcon, hojeImageIcon, escolherImageIcon,
+			aleatorioImageIcon;
 	private JLabel fundoApodLabel, descricaoLabel;
 	private JButton voltarButton, prosseguirButton, hojeButton, escolherButton, aleatorioButton, okButton;
 	private JComboBox<String> diaComboBox, mesComboBox, anoComboBox;
@@ -69,10 +69,10 @@ public class Panel1Apod extends JPanel {
 		fundoApodLabel.setBounds(0, 0, 1217, 597);
 		Utils.botaoVoltar(voltarButton);
 		descricaoLabel.setBounds(71, 245, descricaoImageIcon.getIconWidth(), descricaoImageIcon.getIconHeight());
-		Utils.ajustesBotao(prosseguirButton, 525, 500, "/Apod/04_botao_prosseguir_rolover.png");
-		Utils.ajustesBotao(hojeButton, 0, 486, "/Apod/06_botao_hoje_rolover.png");
-		Utils.ajustesBotao(escolherButton, 400, 486, "/Apod/08_botao_escolher_rolover.png");
-		Utils.ajustesBotao(aleatorioButton, 800, 486, "/Apod/09_botao_aleatorio.png");
+		Utils.ajustesBotao(prosseguirButton, 525, 500, "/Apod/04_botao_prosseguir_rolover.png", null);
+		Utils.ajustesBotao(hojeButton, 0, 486, "/Apod/06_botao_hoje_rolover.png", null);
+		Utils.ajustesBotao(escolherButton, 400, 486, "/Apod/08_botao_escolher_rolover.png", null);
+		Utils.ajustesBotao(aleatorioButton, 800, 486, "/Apod/10_botao_aleatorio_rolover.png", null);
 
 		Utils.ajustesComboBox(diaComboBox, 410, 450);
 		Utils.ajustesComboBox(mesComboBox, 543, 450);
@@ -86,11 +86,10 @@ public class Panel1Apod extends JPanel {
 		mesComboBox.setVisible(false);
 		anoComboBox.setVisible(false);
 
-		
 		int year = new Date().getYear() + 1900;
 		for (int i = year; i >= 0; i--) {
-			if(i>=1996) {
-				anoComboBox.addItem(Integer.toString(i));				
+			if (i >= 1996) {
+				anoComboBox.addItem(Integer.toString(i));
 			}
 			if (i <= 12) {
 				mesComboBox.addItem(Integer.toString(i));
@@ -99,8 +98,13 @@ public class Panel1Apod extends JPanel {
 				diaComboBox.addItem(Integer.toString(i));
 			}
 		}
-		
-		anoComboBox.setSelectedIndex(1);
+
+		int dia = new Date().getDate();
+		int mes = new Date().getMonth() + 1;
+		int ano = new Date().getYear() - 1900;
+		diaComboBox.setSelectedItem(Integer.toString(dia));
+		mesComboBox.setSelectedItem(Integer.toString(mes));
+		anoComboBox.setSelectedItem(Integer.toString(ano));
 
 		okButton.setBounds(790, 450, 50, 30);
 		okButton.setVisible(false);
@@ -153,17 +157,13 @@ public class Panel1Apod extends JPanel {
 					okButton.setVisible(true);
 
 				} else if (arg0.getSource().equals(okButton)) {
-					if (Utils.isInteger(diaComboBox.getSelectedItem().toString())
-							&& Utils.isInteger(mesComboBox.getSelectedItem().toString())
-							&& Utils.isInteger(anoComboBox.getSelectedItem().toString())) {
-						if (Utils.validarData(diaComboBox.getSelectedItem().toString(),
-								mesComboBox.getSelectedItem().toString(), anoComboBox.getSelectedItem().toString())) {
-							String data = Utils.organizarData(diaComboBox.getSelectedItem().toString(),
-									mesComboBox.getSelectedItem().toString(), anoComboBox.getSelectedItem().toString());
-							mensagemCarregando();
-							Apod apod = Request.requestApod(data, false);
-							Panel1Apod2 p = new Panel1Apod2(apod);
-						}
+					if (Utils.validarData(diaComboBox.getSelectedItem().toString(),
+							mesComboBox.getSelectedItem().toString(), anoComboBox.getSelectedItem().toString())) {
+						String data = Utils.organizarData(diaComboBox.getSelectedItem().toString(),
+								mesComboBox.getSelectedItem().toString(), anoComboBox.getSelectedItem().toString());
+						mensagemCarregando();
+						Apod apod = Request.requestApod(data, false);
+						Panel1Apod2 p = new Panel1Apod2(apod);
 					}
 
 				} else if (arg0.getSource().equals(aleatorioButton)) {
