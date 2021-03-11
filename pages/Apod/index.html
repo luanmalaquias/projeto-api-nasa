@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APOD</title>
+    <link rel="icon" href="img/apod_icon.png" />
+    <style>
+        body{
+            background-image: url(img/fundo_apod.png);
+            background-repeat: no-repeat;
+            background-color: black;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        #div-botoes-principais{
+            position: absolute;
+            top: 80%;
+            left: 4%;
+        }
+        #botoes-principais{
+            background-color: rgb(0, 0, 0, 0);
+            border: none;
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 30px;
+            width: 412px;
+            height: 111px;
+            cursor: pointer;
+            font-family: Nasalization;
+            outline: 0;
+        }
+        #botoes-principais:hover{
+            background-image: url(img/botao_rolover.png);
+        }
+        #url{            
+            position: relative;
+            width: 900px;
+        }
+        #title,#date,#info,#cpright{
+            color: white;
+            font-family: verdana;
+        }
+        #date-pick{
+            position: absolute;
+            left: 44.3%;
+        }
+    </style>
+</head>
+<body id="body">
+    
+    <div id="div-botoes-principais">
+        <button id="botoes-principais" onclick = hoje() >Hoje</button>
+        <button id="botoes-principais" onclick = dataEscolhida() >Escolher data</button>
+        <button id="botoes-principais" onclick = dataAleatoria() >Data aleatória</button>  
+        <input id="date-pick" type="date">
+    </div>
+
+    <div id="view">
+        <center>
+            <h1 id = "title" ></h1>
+            <p id="date"></p>
+            <a id="link-clicavel" href="" target="_blank">
+                <img id="url" src=  >
+            </a>
+            <iframe id="url-video" width="420" height="315" src="" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" 
+                allowfullscreen>
+            </iframe>
+            <p id="info"></p>
+            <p id="copyright"></p>
+        </center>
+    </div>
+
+    <script>
+
+        // desativar a principio a visualização do conteúdo, que está 'setada' como nulo
+        document.getElementById('view').style.visibility = "hidden";
+        
+        // esta função, como o nome propõe, ajusta a data maxima do calendário para a data atual do sistema
+        function ajustarDataMaximaDoCalendario(){
+            var d = new Date();
+            var dia = d.getDate();
+            var mes = d.getMonth()+1;
+            var ano = d.getFullYear();
+            if(dia<10) dia = '0' + dia;
+            if(mes<10) mes = '0' + mes;
+            document.getElementById('date-pick').max = ano + '-' + mes + '-' + dia;
+        }
+        ajustarDataMaximaDoCalendario();        
+
+        // esta função esconde os botões de escolha iniciais e torna visível a div 'view' que agora terá conteúdo
+        // após fazer a requisição api
+        function esconderBotoes(){
+            document.getElementById('div-botoes-principais').style.visibility = 'hidden';
+            document.getElementById('body').style.backgroundImage ='url(img/Apod/view.png)';
+            document.getElementById('view').style.visibility = 'visible' ;  
+        }
+
+        // função que realocará o usuário para a escolha "hoje"
+        function hoje(){
+            esconderBotoes();                    
+            request("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY", false);
+        }
+
+        // função que realocará o usuário para a escolha "data escolhida"
+        function dataEscolhida(){
+            esconderBotoes();
+            var date = document.getElementById('date-pick').value;
+            request("https://api.nasa.gov/planetary/apod?date="+date+"&api_key=DEMO_KEY", false)
+        }
+
+        // função que realocará o usuário para a escolha "data aleatóia"
+        function dataAleatoria(){
+            esconderBotoes();  
+            request("https://api.nasa.gov/planetary/apod?count=1&api_key=DEMO_KEY", true)
+        }
+
+        // função que fará a requisição api com o servidor, buscando e ajustando as informações em suas
+        // respectivas tags, entrando com dois parâmetros, o primeiro é a Url, a segunda é 'se a data for aleatoria'
+        async function request(url, aleatorio) {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            // inicializando componentes
+            var title = "";
+            var date = "";
+            var url = "";
+            var explanation = "";
+            var copyright = "";
+            
+            if(!aleatorio){
+                title = data.title;
+                date = data.date;
+                url = data.url;
+                explanation+= data.explanation;
+                copyright = data.copyright;
+                media_type = data.media_type;
+            }else{
+                // se a data for aleatória, o retorno do Json é um array contendo apenas um index, o zero
+                title = data[0].title;
+                date = data[0].date;
+                url = data[0].url;
+                explanation = data[0].explanation;
+                copyright = data[0].copyright;
+                media_type = data[0].media_type;
+            }        
+
+            // o ajuste de cada componente verificando se cada valor não é nulo, para previnir futuros erros
+            if(title!==null) {
+                document.getElementById('title').textContent = title;
+            } 
+            if(date!==null) {
+                document.getElementById('date').textContent = date;
+            } 
+            if(url!==null) {
+                document.getElementById('link-clicavel').href = url;
+            }
+            if(url!==null && media_type=="image") {
+                document.getElementById('url-video').style.visibility = "hidden";                
+                document.getElementById('url-video').style.width = "0px";
+                document.getElementById('url').src = url;
+            }
+            if(media_type!=="image"){
+                document.getElementById('url').style.visibility = "hidden";
+                document.getElementById('url').style.width = "0px";
+                document.getElementById('url-video').src = url;
+            }
+            if(explanation!==null) {
+                document.getElementById('info').textContent = explanation;
+            } 
+            if(copyright!==null) {
+                document.getElementById('copyright').textContent = copyright;         
+            }   
+        }
+
+        
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mars Rover Photos</title>
+    <link rel="icon" href="img/mrp_icon.png" />
+    <style>
+        body{
+            background-repeat: no-repeat;
+            background-color: rgb(33, 33, 33);
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        #div-botoes{
+            left: 0%; top: 0%;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #div-escolha{
+            left: 0%; top: 0%;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #sol-option{
+            position:absolute;
+            top: 0; bottom: 0; left: 45%; right: 0;
+            margin: auto;
+            height: 20px;
+        }
+        #info{
+            position: absolute;
+            color: white;
+            left: 2%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        #sol{
+            top: 50%;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        #curiosity-btn,#opportunity-btn,#spirit-btn{
+            width: 33%;
+            top: 0%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            background-repeat: no-repeat;            
+            background-position: center center;
+            background-size: cover;
+            position: absolute;
+            border: none;
+            outline: 0;
+            transition: 0.5s;
+        }
+        #curiosity-btn{            
+            background-image: url("img/02_botao_curiosity.png");            
+        }
+        #opportunity-btn{
+            left: 33.3%;
+            background-image: url("img/04_botao_opportunity.png");            
+        }
+        #spirit-btn{
+            left: 66.6%;
+            background-image: url("img/06_botao_spirit.png");            
+        }
+        #curiosity-btn:hover{
+            background-image: url("img/03_botao_curiosity_rolover.png");            
+        }
+        #opportunity-btn:hover{
+            background-image: url("img/05_botao_opportunity_rolover.png");            
+        }
+        #spirit-btn:hover{
+            background-image: url("img/07_botao_spirit_rolover.png");            
+        }
+    </style>
+</head>
+<body>
+    <div id="div-botoes">
+        <button id="curiosity-btn" onclick="desativarBotoes('curiosity')"></button>
+        <button id="opportunity-btn" onclick="desativarBotoes('opportunity')"></button>
+        <button id="spirit-btn" onclick="desativarBotoes('spirit')"></button>
+    </div>
+
+    <div id="div-escolha">
+        <p id="info"></p>
+        <div id="sol-option">
+            <span id="sol">Sol</span>
+            <select id="sols"></select>
+            <button id="search" onclick= 'request()'>Search</button>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('div-escolha').style.visibility = 'hidden';
+        var rover = '';
+
+        function desativarBotoes(opcao){            
+            document.getElementById('div-escolha').style.visibility = 'visible';
+            document.getElementById('div-botoes').style.visibility = 'hidden';
+
+            if(opcao=="curiosity"){          
+                ajustarSols(3032, 'c');
+                rover = 'curiosity';
+                document.getElementById('info').innerHTML = "Rover: Curiosity<br>Active Time: 2012-Today<br>Operator: NASA<br>Program Mission: Mars Exploration Rovers<br>Landing date: 06/08/2012<br>Yet active<br>Launch vehicle: Atlas V 541 (AV-028)"
+
+            }else if(opcao=="opportunity"){
+                ajustarSols(5100, null);
+                rover = 'opportunity';
+                document.getElementById('info').innerHTML = "Rover: MER-B (Opportunity)<br>Active Time: 2004-2018<br>Operator: NASA<br>Program Mission: Mars Exploration Rovers<br>Landing date: 25/01/2004<br>Lost contact in 07/2018<br>Launch vehicle: Delta II 7925<br>Sol numbers: 5100<br>"
+
+            }else if(opcao=="spirit"){
+                ajustarSols(643, null);
+                rover = 'spirit';
+                document.getElementById('info').innerHTML = "Rover: Spirit (MER-A) <br>Active Time: 2004-2010<br>Operator: NASA<br>Program Mission: Mars Exploration Rovers<br>Landing date: 3/01/2004<br>Lost contact in 03/2010<br>Launch vehicle: Delta II 7925<br>Sol numbers: 609<br>"
+            }
+        }
+
+        function ajustarSols(i, c){
+
+            var dataProgramador = new Date('2021-01-13T00:00')
+            var dataSistema = new Date();
+            if(c===null){
+                for (i; i >= 0; i--) {                    
+                    var option = new Option(i,i);
+                    var select = document.getElementById("sols");
+                    select.add(option);
+                } 
+                return true;
+            }
+
+            var count = 2996;
+            while(dataSistema>dataProgramador){
+                dataProgramador.setDate(dataProgramador.getDate()+1)              
+                count++;
+            }
+
+            for(var j = count; j>=0; j--) {
+                var option = new Option(j,j);
+                var select = document.getElementById("sols");
+                select.add(option);
+            }           
+        }
+
+        async function request(){
+            document.getElementById('div-escolha').style.visibility = 'hidden';
+            document.getElementById('div-escolha').style.height = '0px';
+            var sol = document.getElementById('sols').value;
+            url = "https://api.nasa.gov/mars-photos/api/v1/rovers/"+rover+"/photos?sol=" + sol + "&api_key=DEMO_KEY";
+            //const response = await fetch(url);
+            //const data = await response.json();
+            //console.log(data.photos[0].img_src)
+        }
+        
+       
+
+    </script>
+</body>
+</html>

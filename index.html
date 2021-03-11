@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasa View Open Api</title>
+    <link rel="icon" href="pages/img/nasa_icon.png" />
+    <style>
+        body{
+            background-image: url("pages/img/fundo.png");
+            background-repeat: no-repeat;
+            background-color: black;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        @font-face {
+            font-family: Nasalization;
+            src: url(font/nasalization-rg.ttf);
+        }
+        #botao-nasa,#botao-spacex{
+            position: absolute;
+            background-color: rgb(0, 0, 0, 0);
+            border: none;
+            cursor: pointer;
+            transition: all 1s;
+        }
+        #botao-nasa{           
+            left: 19.8%;
+            top: 43.3%;
+            width: 17.4%;
+            height: 60px;
+            outline: 0;
+        }
+        #botao-nasa:hover{            
+            background-image: url("pages/img/botao_nasa_rolover.png");
+        }
+        #botao-spacex{           
+            left: 51.5%;
+            top: 41.5%;
+            width: 38%;
+            height: 10.5%;
+            outline: 0;      
+        }
+        #botao-spacex:hover{
+            background-image: url("pages/img/botao_spacex_rolover.png");
+        }        
+        #div-botoes{
+            top: 90%;
+            position: absolute; 
+        }
+        #botao{
+            background-color: rgb(0, 0, 0, 0);            
+            border: none;
+            cursor: pointer;
+            color: white;
+            width:121px;
+            height:62px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            text-align: center;            
+            font-family: Nasalization;
+            outline: 0;
+        }
+        #botao:hover{
+            background-image: url("pages/img/botao_rolover.png");
+		}
+        
+    </style>
+</head>
+<body>
+    
+    <div id="div-botoes-centrais">
+        <a href="https://www.nasa.gov/" target="_blank" title="Visit Nasa.gov">
+            <button id="botao-nasa"></button>
+        </a>
+        <a href="https://www.spacex.com/" target="_blank" title="Visit Spacex.com">
+            <button id="botao-spacex"></button></button>
+        </a>
+    </div>
+
+    <div id="div-botoes">
+        <button id="botao" onclick = openApod() title="Astronomy Picture of the Day">Apod</button>
+        <!--<button id="botao" onclick = openInsight()>Insight</button>-->
+        <button id="botao" onclick = openMrp() title="Mars Rover Photos">MRP</button>
+    </div>    
+   
+</body>
+
+    <script>
+        function openApod(){
+            location.href = 'pages/Apod/index.html'
+        }
+        function openInsight(){
+            location.href = 'pages/Insight/index.html'
+        }
+        function openMrp(){
+            location.href = 'pages/MarsRoverPhotos/index.html'
+        }
+    </script>
+
+</html>
